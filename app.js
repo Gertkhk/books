@@ -36,38 +36,46 @@ function addBook(event){
 function deleteBook(event){
     let selectedBook
 
+    let name = event.target.parentElement.parentElement.children[0].innerText
+    let author = event.target.parentElement.parentElement.children[1].innerText
+    let ISBN = event.target.parentElement.parentElement.children[2].innerText
+    let selectedBookLS = [name, author, ISBN]
+
     if (event.target.textContent === "❌") {
         if (confirm("Are you sure you want to remove the book?")) {
             selectedBook = event.target.parentElement.parentElement.rowIndex
             masterTable.deleteRow(selectedBook)
-            deleteTaskLS(event.target.parentElement.textContent.slice(0,-1))
+            deleteBookLS(selectedBookLS)
         }
     }
 }
 
-function addBookLS(book){
-    let books
-    if (localStorage.getItem("books") === null){
-        books = []
-    } else {
-        books = JSON.parse(localStorage.getItem("books"))
-    }
-    books.push(book)
-    localStorage.setItem("books", JSON.stringify(books))
-}
-
-function deleteTaskLS(book) {
-    let books
-    if(localStorage.getItem('books') === null){
-        books = []
-    } else {
-        books = JSON.parse(localStorage.getItem('books'))
-    }
-    books.forEach((bookLS, bookIndex) => {
-        if(bookLS === book){
-            console.log(books[bookIndex])
-            books.splice(bookIndex, 1)
+    function addBookLS(book){
+        let books
+        if (localStorage.getItem("books") === null){
+            books = []
+        } else {
+            books = JSON.parse(localStorage.getItem("books"))
         }
-    })
-    localStorage.setItem('books', JSON.stringify(books))
-}
+        books.push(book)
+        localStorage.setItem("books", JSON.stringify(books))
+    }
+
+    function deleteBookLS(book){
+        let books
+        if (localStorage.getItem("books") === null){
+            books = []
+        } else {
+            books = JSON.parse(localStorage.getItem("books"))
+        }
+        books.forEach((bookLS, bookIndex) => {
+            console.log(bookLS)
+            console.log(book)
+            const sbookLS = JSON.stringify(bookLS)
+            const sbook = JSON.stringify(book)
+            if(sbookLS === sbook){
+                books.splice(bookIndex, 1)
+            }
+        })
+        localStorage.setItem('books', JSON.stringify(books))
+    }
