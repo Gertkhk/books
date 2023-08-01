@@ -4,6 +4,7 @@ const authorForm = document.querySelector("#authorForm");
 const isbnForm = document.querySelector("#isbnForm");
 const masterTable = document.querySelector('#masterTable')
 
+
 masterTable.addEventListener('click', deleteBook)
 form.addEventListener('submit', addBook)
 
@@ -16,7 +17,7 @@ function addBook(event){
     const cell4 = row.insertCell()
 
     const cross = document.createElement('a')
-    cross.appendChild(document.createTextNode('❌')) // change to X
+    cross.appendChild(document.createTextNode('❌'))
     cross.className = 'red-text text-darken-2 secondary-content'
     cross.setAttribute('href', '#')
 
@@ -50,32 +51,32 @@ function deleteBook(event){
     }
 }
 
-    function addBookLS(book){
-        let books
-        if (localStorage.getItem("books") === null){
-            books = []
-        } else {
-            books = JSON.parse(localStorage.getItem("books"))
-        }
-        books.push(book)
-        localStorage.setItem("books", JSON.stringify(books))
+function addBookLS(book){
+    let books
+    if (localStorage.getItem("books") === null){
+        books = []
+    } else {
+        books = JSON.parse(localStorage.getItem("books"))
     }
+    books.push(book)
+    localStorage.setItem("books", JSON.stringify(books))
+}
 
-    function deleteBookLS(book){
-        let books
-        if (localStorage.getItem("books") === null){
-            books = []
-        } else {
-            books = JSON.parse(localStorage.getItem("books"))
-        }
-        books.forEach((bookLS, bookIndex) => {
-            console.log(bookLS)
-            console.log(book)
-            const sbookLS = JSON.stringify(bookLS)
-            const sbook = JSON.stringify(book)
-            if(sbookLS === sbook){
-                books.splice(bookIndex, 1)
-            }
-        })
-        localStorage.setItem('books', JSON.stringify(books))
+function deleteBookLS(book){
+    let books
+    if (localStorage.getItem("books") === null){
+        books = []
+    } else {
+        books = JSON.parse(localStorage.getItem("books"))
     }
+    books.forEach((bookLS, bookIndex) => {
+        console.log(bookLS)
+        console.log(book)
+        const sbookLS = JSON.stringify(bookLS)
+        const sbook = JSON.stringify(book)
+        if(sbookLS === sbook){
+            books.splice(bookIndex, 1)
+        }
+    })
+    localStorage.setItem('books', JSON.stringify(books))
+}
